@@ -40,3 +40,37 @@ Die Spieler nutzen physische Würfel, deren Ergebnisse über eine interaktive Ma
 RandomCleverGame ist ein privates, nicht-kommerzielles Programm zu Lern- und Portfoliozwecken.
 Die Spielmechaniken sind inspiriert von der Clever-Reihe von Wolfgang Warsch / Schmidt Spiele.
 Alle Markenrechte liegen bei den jeweiligen Rechteinhabern.
+
+## Installation & Start
+
+### Voraussetzungen 
+* **Python 3.10 oder neuer** (getestet unter Python 3.14)
+* **Tkinter:** Auf manchen Linux-Systemen muss Tkinter separat installiert werden (unter Windows und macOS ist es standardmäßig enthalten):
+  * *Ubuntu / Debian / Linux Mint:* `sudo apt install python3-tk`
+
+### 1. Repository klonen
+* In einem gewünschten Ordner das Terminal öffnen und folgendes ausführen:
+```
+git clone https://github.com/LutherChris/RandomCleverGame.git
+cd RandomCleverGame
+```
+
+```
+# Linux / macOS
+python3 -m venv venv
+source venv/bin/activate
+
+# Windows
+python -m venv venv
+venv\Scripts\activate
+```
+
+### 3. Abhängigkeiten installieren:
+```
+pip install -r requirements.txt
+```
+
+### 4. Anwendung starten:
+```
+python RandomCleverGame.py
+```
