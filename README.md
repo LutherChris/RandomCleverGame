@@ -1,14 +1,14 @@
 # RandomCleverGame
 Eine Python-Implementierung eines digitalen Wertungsblocks für ein bekanntes Würfelspiel mit zufällig generierten Oberflächen.
 
-## Beschreibung & Features
-**RandomCleverGame** erzeugt ein zufällig generiertes Spielfeld. Dabei werden Farbfelder, Boni, Punktelogiken und Bedingungen dynamisch kombiniert.
-Die Spieler nutzen physische Würfel, deren Ergebnisse über eine interaktive Maussteuerung auf dem Wertungsblock eingetragen werden.
-
 ## Inspiration & Disclaimer
 RandomCleverGame ist ein privates, nicht-kommerzielles Programm zu Lern- und Portfoliozwecken.
 Die Spielmechaniken sind inspiriert von der Clever-Reihe von Wolfgang Warsch / Schmidt Spiele.
 Alle Markenrechte liegen bei den jeweiligen Rechteinhabern.
+
+## Beschreibung & Features
+**RandomCleverGame** erzeugt ein zufällig generiertes Spielfeld. Dabei werden Farbfelder, Boni, Punktelogiken und Bedingungen dynamisch kombiniert.
+Die Spieler nutzen physische Würfel, deren Ergebnisse über eine interaktive Maussteuerung auf dem Wertungsblock eingetragen werden.
 
 ### Features
 * **Seed-System:**
