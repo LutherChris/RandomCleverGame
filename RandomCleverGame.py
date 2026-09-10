@@ -112,7 +112,7 @@ v_ = w_/2
 # ================================================================
 
 # Erstelle Textfeld für den Verlauf
-history_box = st.ScrolledText(root, width=30, height=10 ,font=font_mid, background=color_bg, borderwidth=0, highlightthickness=0)
+history_box = st.ScrolledText(root, width=25, height=9 ,font=font_mid, background=color_bg, borderwidth=0, highlightthickness=0)
 history_box.place(relx=1, rely=1, anchor='se')
 history_box.configure(state="disabled") # Nur lesbar
 
