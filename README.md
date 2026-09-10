@@ -55,6 +55,7 @@ git clone https://github.com/LutherChris/RandomCleverGame.git
 cd RandomCleverGame
 ```
 
+### 2. Python Bibliotheken installieren
 ```
 # Linux / macOS
 python3 -m venv venv
