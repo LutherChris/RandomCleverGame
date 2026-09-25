@@ -85,7 +85,10 @@ icons = {"nw": ImageTk.PhotoImage(Image.open("icons/nw.png").resize((icon_size, 
          "re": ImageTk.PhotoImage(Image.open("icons/re.png").resize((icon_size, icon_size))),
          "minus": ImageTk.PhotoImage(Image.open("icons/minus.png").resize((icon_size, icon_size))),
          "leq": ImageTk.PhotoImage(Image.open("icons/leq.png").resize((icon_size, icon_size))),
-         "req": ImageTk.PhotoImage(Image.open("icons/req.png").resize((icon_size, icon_size)))}
+         "req": ImageTk.PhotoImage(Image.open("icons/req.png").resize((icon_size, icon_size))),
+         "one": ImageTk.PhotoImage(Image.open("icons/looks_1.png").resize((int(1.5*icon_size), int(1.5*icon_size)))),
+         "two": ImageTk.PhotoImage(Image.open("icons/looks_2.png").resize((int(1.5*icon_size), int(1.5*icon_size)))),
+         "three": ImageTk.PhotoImage(Image.open("icons/looks_3.png").resize((int(1.5*icon_size), int(1.5*icon_size))))}
 
 # Erzeugung des Hauptfensters
 canvas = tk.Canvas(root, width=game_width, height=game_height, bg=color_bg)
@@ -1031,12 +1034,118 @@ class Versionen(Spielfeld):
 
     # -------------------------------
 
-field0_x_list = ["field0_c1", "field0_c2"]
-field1_x_list = ["field1_c1", "field1_c2", "field1_c2_c"]
-field2_x_list_orange = ["field2_c1"]
-field2_x_list_blue = ["field2_c2", "field2_c2_c"]
-field3_x_list = ["field3_c1", "field3_c2"]
-field4_x_list = ["field4_c1", "field4_c2"]
+    def field0_c3(self):
+        """ gelbes Feld """
+        self.farbe = "Gelb"
+        self.version = "C3"
+
+        black_b = shuffle(boni_symbols, 5, add=[boni_symbols[0], boni_symbols[3], boni_symbols[3], boni_symbols[4],boni_symbols[4]])
+        black_boni_tmp.extend(black_b)
+
+        # Hintergrund
+        super().rectangles(1, 1, colors[0][2], w_/2, colors[0][1])
+
+        # Interaktionsfelder
+        a = (self.breite-2*w_)/7
+        grid = [["1","2","3","4","5","6"],
+                ["X", "X", "X", "X", "X", "X"],
+                ["1","2","3","4","5","6"],
+                ["X", "X", "X", "X", "X", "X"],
+                ["1","2","3","4","5","6"]]
+        
+        colors_1 = [color_field, color_field, color_field, color_field, colors[0][2], colors[0][2]]
+        colors_2 = [color_field, color_field, colors[0][2], colors[0][2], color_field, color_field]
+        colors_3 = [colors[0][2], colors[0][2], color_field, color_field, color_field, color_field]
+        
+        grid_colors = [colors_1,colors_1,colors_2,colors_1,colors_3]
+        super().rectangles(5, 6, grid_colors, version_tag=self.tags, dx0y0=(a+w_, 1.75*a+w_), dx1y1=(-w_, -0.25*a-w_), grid=grid, grid_del=True, grid_color=colors[0][1])
+        super().text(5, 6, grid, dx0y0=(a+w_, 1.75*a+w_), dx1y1=(-w_, -0.25*a-w_), font=font_mid, fill="dimgrey")
+
+        img = [[icons["one"]],
+               [None],
+               [icons["two"]],
+               [None],
+               [icons["three"]]]
+        
+        super().images(5, 1, img, dx0y0=(-4*a-w_, 1.75*a+w_),dx1y1=(-6*w_, -0.25*a-w_))
+
+        # Speichere Eigenschaften
+        self.n_x = 6
+        self.n_y = 3
+        self.dx0y0 = (a+w_, 1.75*a+w_)
+        self.dx1y1 = (-w_, -0.25*a-w_)
+
+        # Punkte
+        text1 = [["2", "6", "12", "20", "30", "42"]]
+        text2 = [["1", "2", "3", "4", "5", "6"]]
+
+        b = 5.5*a+w_
+        super().ovals(1, 6, colors[0][2], dx0y0=(w_, w_/2), dx1y1=(-w_, -b-2*w_), gap=0.5*w_)
+        super().text(1, 6, text1, dx0y0=(w_, w_/2), dx1y1=(-w_, -b-2*w_), font=font_mid)
+
+        super().rectangles(1, 6, colors[0][2], dx0y0=(w_, 0.5*a+0.9*w_), dx1y1=(-w_, -b), gap=0.9*w_)
+        super().text(1, 6, text2, dx0y0=(w_, 0.5*a+0.9*w_), dx1y1=(-w_, -b), font=font_mid)
+
+        # Boni
+        b_colors = shuffle(boni_colors, 12, add=["red", "black", "black", "black", "black", "black"])
+        b_colors1 = [b_colors[:6]]
+        b_colors2 = [b_colors[6:]]
+        super().rectangles(1, 6, dx0y0=(a+w_, 2.75*a+w_), dx1y1=(-w_, -3.25*a-w_), colors_0=b_colors1, gap=w_/2)
+        super().rectangles(1, 6, dx0y0=(a+w_, 4.75*a+w_), dx1y1=(-w_, -1.25*a-w_), colors_0=b_colors2, gap=w_/2)
+
+        # Punktelogik
+        def calc_points(stats):
+            punkte_rows = stats["rows_cross"]
+            punktewerte = [0, 2, 6, 12, 20, 30, 42]
+
+            punkte = 0
+            for i in punkte_rows:
+                punkte = punkte + punktewerte[i]
+
+            return punkte
+
+        self.punkte_funktion = calc_points
+
+
+def choose_version_lists(V_list="all"):
+
+    #              Feld1            Feld2           Feld3-orange    Feld3-blau      Feld4           Feld5  
+    versions_1  = ["field0_c1",     "field1_c1",    "field2_c1",    None,           "field3_c1",    "field4_c1"]
+    versions_1c = [None,            None,           None,           None,           None,           None]
+    versions_2  = ["field0_c2",     "field1_c2",    None,           "field2_c2",    "field3_c2",    "field4_c2"]
+    versions_2c = [None,            "field1_c2_c",  None,           "field2_c2_c",  None,           None]
+    versions_3  = ["field0_c3",     None,           None,           None,           None,           None]
+    versions_3c = [None,            None,           None,           None,           None,           None]
+    versions_4  = [None,            None,           None,           None,           None,           None]
+    versions_4c = [None,            None,           None,           None,           None,           None]
+
+    if V_list == "all":
+        V_list = ["1", "2", "3", "4"]
+    
+    fields = [[], [], [], [], [], []]
+
+    def addversion(param, versions, versions_c):
+        if param in V_list:
+            for i, field in enumerate(fields):
+                if versions[i] is not None:
+                    field.append(versions[i])
+                if versions_c[i] is not None:
+                    field.append(versions_c[i])
+
+    if "1" in V_list:
+        addversion("1", versions_1, versions_1c)
+    if "2" in V_list:
+        addversion("2", versions_2, versions_2c)
+    if "3" in V_list:
+        addversion("3", versions_3, versions_3c)
+    if "4" in V_list:
+        addversion("4", versions_4, versions_4c)
+    
+
+    return fields
+
+
+field0_x_list, field1_x_list, field2_x_list_orange, field2_x_list_blue, field3_x_list, field4_x_list = choose_version_lists()
 
 # ================================================================
 # Hilfsfunktionen
@@ -1048,15 +1157,22 @@ def shuffle(object, result_len, add=None, pref=None, sigma=1/6):
     result_len: Länge der zurückgegebenen Liste
     add: Liste mit Elementen, die hinzugefügt werden
     """
-
+    # object auffüllen
+    diff = len(object) - result_len
     object = list(object)
+
+    while diff < 0:
+        object.append(random.choice(object))
+        diff = diff+1
+
+    # object zuschneiden, falls diff > 0
     random.shuffle(object)
+    if not len(object) == result_len:
+        object = object[0: result_len] 
 
     if add is not None:
         object = object[:result_len - len(add)] + list(add)
         random.shuffle(object)
-    else:
-        object = object[:result_len]
     
     # Gauß-Bias für bestimmte Elemente
     """
@@ -1516,16 +1632,74 @@ def on_click(event):
 def open_setup_window():
     setup_win = tk.Toplevel(root)
     setup_win.title("Spielfeld Steuerung")
-    setup_win.geometry(f"320x225")
+    setup_win.geometry(f"320x350")
     setup_win.configure(bg=color_bg)
+
+    version_buttons = {}
+    active_versions = ["1", "2", "3", "4"]
     
+    def update_button_visuals():
+        """Färbt die Buttons basierend auf der Liste active_versions ein."""
+        for v_num in ["1", "2", "3", "4"]:
+            if v_num in active_versions:
+                version_buttons[v_num].config(bg="#808080", fg="white") # Aktiv = Grau
+            else:
+                version_buttons[v_num].config(bg="#f0f0f0", fg="black") # Inaktiv = Hell
+
+    def toggle_version(v_num):
+        """Fügt eine Version hinzu oder entfernt sie und aktualisiert das Feld."""
+        if v_num in active_versions:
+            active_versions.remove(v_num)
+        else:
+            active_versions.append(v_num)
+ 
+        # Visuelles Update in der GUI
+        update_button_visuals()
+   
+        lists = choose_version_lists(active_versions)
+
+        requirements = ( (lists[0] and any(x is not None for x in lists[0])) and
+                         (lists[1] and any(x is not None for x in lists[1])) and
+                         ( (lists[2] and any(x is not None for x in lists[2])) or (lists[3] and any(x is not None for x in lists[3]))) and
+                         (lists[4] and any(x is not None for x in lists[4])) and
+                         (lists[5] and any(x is not None for x in lists[5])) )
+
+        if not requirements:
+            error_label.config(text="Listen unvollständig")
+            return
+        
+        error_label.config(text="")
+        global field0_x_list, field1_x_list, field2_x_list_orange, field2_x_list_blue, field3_x_list, field4_x_list
+        field0_x_list, field1_x_list, field2_x_list_orange, field2_x_list_blue, field3_x_list, field4_x_list = lists
+        apply_manual_seed()
+
+    # =========================================================================
+    # Spezielle Kombinationen
+    # =========================================================================
+    label1 = tk.Label(setup_win, text="Ausgewählte Versionen:", font=font_large, bg=color_bg)
+    label1.pack(pady=(20, 5))
+    
+    # Erste Zeile
+    special_frame = tk.Frame(setup_win, bg=color_bg)
+    special_frame.pack(fill="x", pady=2, padx=20)
+
+    versions = ["1", "2", "3", "4"]
+
+    for v_num in versions:
+        btn = tk.Button(special_frame, text=f"V{v_num}", font=font_large, command=lambda v=v_num: toggle_version(v), bg="#808080", fg="white")
+        btn.pack(side="left", expand=True, fill="x", padx=5)
+        version_buttons[v_num] = btn
+
+    # =========================================================================
+    # Seed-Eingabe und Steuerung
+    # =========================================================================
     lbl = tk.Label(setup_win, text="Seed eingeben oder würfeln:", font=font_large, bg=color_bg)
     lbl.pack(pady=10)
 
     entry = tk.Entry(setup_win, font=font_large, justify="center")
     entry.pack(fill="x", padx=20, pady=5)
     
-    # Den aktuellen, beim Start gewählten Seed im Textfeld anzeigen
+    # aktuellen Seed anzeigen
     entry.insert(0, start_seed)
 
     def apply_manual_seed():
@@ -1545,7 +1719,7 @@ def open_setup_window():
         entry.insert(0, neuer_seed)
         spielfeld_generieren(neuer_seed)
 
-    # Erste Reihe an Buttons (Generieren und Reroll)
+
     action_frame = tk.Frame(setup_win, bg=color_bg)
     action_frame.pack(fill="x", pady=10, padx=20)
 
@@ -1555,12 +1729,21 @@ def open_setup_window():
     reroll_btn = tk.Button(action_frame, text="Reroll", font=font_large, command=reroll_seed)
     reroll_btn.pack(side="right", expand=True, fill="x", padx=5)
 
-    # Zweite Reihe (OK / Schließen-Button unten drunter)
+    # =========================================================================
+    # Schließen / Starten
+    # =========================================================================
     close_frame = tk.Frame(setup_win, bg=color_bg)
     close_frame.pack(fill="x", pady=5, padx=20)
 
     ok_btn = tk.Button(close_frame, text="START", font=font_large, command=setup_win.destroy)
     ok_btn.pack(fill="x", padx=5)
+
+    # =========================================================================
+    # Fehlermeldung
+    # =========================================================================
+    error_label = tk.Label(setup_win, text="", font=font_large, bg=color_bg, fg="red")
+    error_label.pack(pady=5)
+
 
 # ================================================================
 # Generierungung der tkinter Oberfläche

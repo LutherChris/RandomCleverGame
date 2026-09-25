@@ -11,10 +11,12 @@ Alle Markenrechte liegen bei den jeweiligen Rechteinhabern.
 Die Spieler nutzen physische Würfel, deren Ergebnisse über eine interaktive Maussteuerung auf dem Wertungsblock eingetragen werden.
 
 ### Features
+* **Abwahl von Varianten**
+  * Verschiedene Varianten für unterschiedliche Farbbereiche (z. B. Gelb, Blau, Orange, Grün, Lila) können durch die Buttons V1 bis V4 abgewählt oder wieder hinzugefügt werden. 
 * **Seed-System:**
   * Über eine Reroll-Funktion wird das Spielfeld basierend auf einem Seed zufällig generiert. Seeds können auch manuell eingegeben werden, um verschiedenen Mitspielern das gleiche Spielfeld zu ermöglichen.
 * **Dynamisches Spielfeld:**
-  * Verschiedene Varianten für unterschiedliche Farbbereiche (z. B. Gelb, Blau, Orange, Grün, Lila) werden zufällig kombiniert. Jeder Farbbereich hat unterschiedliche Regeln, die sich an den Clever-Spielen von Wolfgang Warsch / Schmidt Spiele orientieren (z. B. aufsteigende/absteigende Zahlenreihen, Multiplikatoren, Boni).
+  * Die Varianten werden zufällig kombiniert. Jeder Farbbereich hat unterschiedliche Regeln, die sich an den Clever-Spielen von Wolfgang Warsch / Schmidt Spiele orientieren (z. B. aufsteigende/absteigende Zahlenreihen, Multiplikatoren, Boni).
   * Die zufällige Farbplatzierung vermeidet Kollisionen, sodass jedes Farbfeld genau einmal vorkommt.
   * Die Boni innerhalb der Farbbereiche werden zufällig verteilt.
 * **Interaktive Bedienung & Maussteuerung:**
