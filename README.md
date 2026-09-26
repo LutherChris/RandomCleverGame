@@ -46,6 +46,18 @@ Die Spieler nutzen physische Würfel, deren Ergebnisse über eine interaktive Ma
 ## Installation & Start
 
 ### Repository herunterladen
+
+* manuell herunterladen oder git installieren
+
+* git mit Terminal installieren:
+```
+# Linux:
+sudo apt update
+sudo apt install git
+
+# Windows:
+winget install --id Git.Git -e --source winget
+```
 * Terminal im gewünschten Ordner öffnen, dann:
 ```
 git clone https://github.com/LutherChris/RandomCleverGame
