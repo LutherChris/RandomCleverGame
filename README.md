@@ -45,11 +45,22 @@ Die Spieler nutzen physische Würfel, deren Ergebnisse über eine interaktive Ma
 
 ## Installation & Start
 
+### Repository herunterladen
+* Terminal im gewünschten Ordner öffnen, dann:
+```
+git clone https://github.com/LutherChris/RandomCleverGame
+```
+
 ### Linux:
-* RandomCleverGame_linux
+* Ausführungsberechtigung hinzufügen
+```
+chmod +x RandomCleverGame_linux 
+```
+* RandomCleverGame_linux starten
 
 ### Windows:
-* RandomCleverGame_windows.exe
+* RandomCleverGame_windows.exe starten
+
 
 ### Direkt mit Python:
 
