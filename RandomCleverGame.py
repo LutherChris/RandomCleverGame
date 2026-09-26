@@ -4,6 +4,8 @@ import tkinter.font as tkfont
 import tkinter.scrolledtext as st
 import numpy as np
 import random
+import os
+import sys
 from PIL import Image, ImageTk
 from screeninfo import get_monitors
 
@@ -70,26 +72,34 @@ font_mid = (fonttype, fontsize_mid)
 font_small = (fonttype, fontsize_small)
 
 # Icons laden
-icons = {"nw": ImageTk.PhotoImage(Image.open("icons/nw.png").resize((icon_size, icon_size))),
-         "rh": ImageTk.PhotoImage(Image.open("icons/rh.png").resize((icon_size, icon_size))),
-         "pm": ImageTk.PhotoImage(Image.open("icons/pm.png").resize((icon_size, icon_size))),
-         "zw": ImageTk.PhotoImage(Image.open("icons/zw.png").resize((icon_size, icon_size))),
-         "p1": ImageTk.PhotoImage(Image.open("icons/p1.png").resize((icon_size, icon_size))),
-         "fuchs": ImageTk.PhotoImage(Image.open("icons/fuchs.png").resize((icon_size, icon_size))),
-         "q": ImageTk.PhotoImage(Image.open("icons/q.png").resize((icon_size, icon_size))),
-         "2player": ImageTk.PhotoImage(Image.open("icons/2player.png").resize((icon_size, icon_size))),
-         "3player": ImageTk.PhotoImage(Image.open("icons/3player.png").resize((icon_size, icon_size))),
-         "B": ImageTk.PhotoImage(Image.open("icons/B.png").resize((icon_size, icon_size))),
-         "arrow": ImageTk.PhotoImage(Image.open("icons/arrow.png").resize((icon_size, icon_size))),
-         "le": ImageTk.PhotoImage(Image.open("icons/le.png").resize((icon_size, icon_size))),
-         "re": ImageTk.PhotoImage(Image.open("icons/re.png").resize((icon_size, icon_size))),
-         "minus": ImageTk.PhotoImage(Image.open("icons/minus.png").resize((icon_size, icon_size))),
-         "leq": ImageTk.PhotoImage(Image.open("icons/leq.png").resize((icon_size, icon_size))),
-         "req": ImageTk.PhotoImage(Image.open("icons/req.png").resize((icon_size, icon_size))),
-         "one": ImageTk.PhotoImage(Image.open("icons/looks_1.png").resize((int(1.5*icon_size), int(1.5*icon_size)))),
-         "two": ImageTk.PhotoImage(Image.open("icons/looks_2.png").resize((int(1.5*icon_size), int(1.5*icon_size)))),
-         "three": ImageTk.PhotoImage(Image.open("icons/looks_3.png").resize((int(1.5*icon_size), int(1.5*icon_size))))}
 
+def get_resource_path(relative_path):
+    """ Ermittelt den absoluten Pfad zur Ressource (wichtig für exe-Dateien) """
+    if hasattr(sys, '_MEIPASS'):
+        return os.path.join(sys._MEIPASS, relative_path)
+    return os.path.join(os.path.abspath("."), relative_path)
+
+icons = {
+    "nw": ImageTk.PhotoImage(Image.open(get_resource_path("icons/nw.png")).resize((icon_size, icon_size))),
+    "rh": ImageTk.PhotoImage(Image.open(get_resource_path("icons/rh.png")).resize((icon_size, icon_size))),
+    "pm": ImageTk.PhotoImage(Image.open(get_resource_path("icons/pm.png")).resize((icon_size, icon_size))),
+    "zw": ImageTk.PhotoImage(Image.open(get_resource_path("icons/zw.png")).resize((icon_size, icon_size))),
+    "p1": ImageTk.PhotoImage(Image.open(get_resource_path("icons/p1.png")).resize((icon_size, icon_size))),
+    "fuchs": ImageTk.PhotoImage(Image.open(get_resource_path("icons/fuchs.png")).resize((icon_size, icon_size))),
+    "q": ImageTk.PhotoImage(Image.open(get_resource_path("icons/q.png")).resize((icon_size, icon_size))),
+    "2player": ImageTk.PhotoImage(Image.open(get_resource_path("icons/2player.png")).resize((icon_size, icon_size))),
+    "3player": ImageTk.PhotoImage(Image.open(get_resource_path("icons/3player.png")).resize((icon_size, icon_size))),
+    "B": ImageTk.PhotoImage(Image.open(get_resource_path("icons/B.png")).resize((icon_size, icon_size))),
+    "arrow": ImageTk.PhotoImage(Image.open(get_resource_path("icons/arrow.png")).resize((icon_size, icon_size))),
+    "le": ImageTk.PhotoImage(Image.open(get_resource_path("icons/le.png")).resize((icon_size, icon_size))),
+    "re": ImageTk.PhotoImage(Image.open(get_resource_path("icons/re.png")).resize((icon_size, icon_size))),
+    "minus": ImageTk.PhotoImage(Image.open(get_resource_path("icons/minus.png")).resize((icon_size, icon_size))),
+    "leq": ImageTk.PhotoImage(Image.open(get_resource_path("icons/leq.png")).resize((icon_size, icon_size))),
+    "req": ImageTk.PhotoImage(Image.open(get_resource_path("icons/req.png")).resize((icon_size, icon_size))),
+    "one": ImageTk.PhotoImage(Image.open(get_resource_path("icons/looks_1.png")).resize((int(1.5*icon_size), int(1.5*icon_size)))),
+    "two": ImageTk.PhotoImage(Image.open(get_resource_path("icons/looks_2.png")).resize((int(1.5*icon_size), int(1.5*icon_size)))),
+    "three": ImageTk.PhotoImage(Image.open(get_resource_path("icons/looks_3.png")).resize((int(1.5*icon_size), int(1.5*icon_size))))
+}
 # Erzeugung des Hauptfensters
 canvas = tk.Canvas(root, width=game_width, height=game_height, bg=color_bg)
 canvas.pack(side="left")
@@ -406,6 +416,13 @@ class Versionen(Spielfeld):
         super().rectangles(1, p1, colors_0=color_bg, dx0y0=(0, 4*a), dx1y1=(0, 0), version_tag="p1", offset=v_/2, colors_1=color_field)
 
     # -------------------------------
+    def field_empty(self):
+        self.farbe = "bg"
+        self.version = "empty"
+        super().rectangles(1, 1, color_bg, w_/2, color_bg)
+        self.n_x = 1
+        self.n_y = 1
+        
 
     def field0_c1(self):
         """ gelbes Feld """
@@ -1106,6 +1123,74 @@ class Versionen(Spielfeld):
 
         self.punkte_funktion = calc_points
 
+    def field1_c3(self):
+        """ orangenes Feld """
+        self.farbe = "Orange"
+        self.version = "C3"
+
+        black_b = shuffle(boni_symbols, 3, add=[boni_symbols[0], boni_symbols[3], boni_symbols[4]])
+        black_boni_tmp.extend(black_b)
+
+        # Hintergrund
+        super().rectangles(1,1, colors[2][2], w_/2, colors[2][1])
+
+        # Interaktionsfelder
+        a = (self.breite-2*w_)/7
+        numbers = ["1","2","3","4","5","6"]
+        grid = [numbers,
+                numbers,
+                numbers,
+                numbers,
+                numbers]
+        c = colors[2][2]
+        b = color_bg
+        colorfields = [[c, c, c, c, c, c],
+                       [c, c, c, c, c, b],
+                       [c, c, c, b, b, b],
+                       [c, c, b, b, b, b],
+                       [c, b, b, b, b, b]]
+        super().rectangles(5, 6, colorfields, version_tag=self.tags, dx0y0=(w_, a+w_), dx1y1=(-a-w_, -a-w_))
+        super().text(5, 6, grid, dx0y0=(w_, a+w_), dx1y1=(-a-w_, -a-w_), font=font_mid, fill="dimgrey")
+
+        # Speichere Eigenschaften
+        self.n_x = 6
+        self.n_y = 5
+        self.dx0y0 = (w_, a+w_)
+        self.dx1y1 = (-a-w_, -a-w_)
+
+        # Punkte
+        text1 = [["1", "3", "6", "10", "15", "21"]]
+        text2 = [["1", "2", "3", "4", "5", "6"]]
+
+        b = 6*a+2*w_
+        super().ovals(1, 6, colors[2][2], dx0y0=(w_/2, -w_/4), dx1y1=(-w_, -b), gap=0.8*w_, dxy=(0, -0.2*w_))
+        super().text(1, 6, text1, dx0y0=(w_/2, -w_/4), dx1y1=(-w_, -b), dxy=(0, -0.2*w_))
+
+        super().rectangles(1, 6, colors[2][2], dx0y0=(w_/2, -w_/4), dx1y1=(-w_, -b), gap=w_, dxy=(0, 0.5*a))
+        super().text(1, 6, text2, dx0y0=(w_/2, -w_/4), dx1y1=(-w_, -b), dxy=(0, 0.5*a))
+
+        # Boni
+        b = 6*a+w_
+        b_colors = shuffle(boni_colors, 10, ["red", "black", "black", "black"])
+        b1_colors = np.vstack([*b_colors[:4]])
+        b2_colors = [[*b_colors[4:]]]
+
+        super().rectangles(4, 1, b1_colors, dx0y0=(b, w_+a), dx1y1=(-w_, -w_-2*a), gap=w_/2, dxy=(w_/4,0))
+        super().rectangles(1, 6, b2_colors, dx0y0=(w_, b), dx1y1=(-w_-a, -w_), gap=w_/2, dxy=(0,w_/4))
+
+        # Punktelogik
+        def calc_points(stats):
+            punkte_rows = stats["rows_cross"]
+            punktewerte = [0, 1, 3, 6, 10, 15, 21]
+
+            punkte = 0
+            for i in punkte_rows:
+                punkte = punkte + punktewerte[i]
+
+            return punkte
+        
+        self.punkte_funktion = calc_points
+
 
 def choose_version_lists(V_list="all"):
 
@@ -1114,7 +1199,7 @@ def choose_version_lists(V_list="all"):
     versions_1c = [None,            None,           None,           None,           None,           None]
     versions_2  = ["field0_c2",     "field1_c2",    None,           "field2_c2",    "field3_c2",    "field4_c2"]
     versions_2c = [None,            "field1_c2_c",  None,           "field2_c2_c",  None,           None]
-    versions_3  = ["field0_c3",     None,           None,           None,           None,           None]
+    versions_3  = ["field0_c3",     "field1_c3",    None,           None,           None,           None]
     versions_3c = [None,            None,           None,           None,           None,           None]
     versions_4  = [None,            None,           None,           None,           None,           None]
     versions_4c = [None,            None,           None,           None,           None,           None]
@@ -1410,10 +1495,16 @@ def spielfeld_generieren(seed_wert):
     # ================================================================
 
     # wähle zufällige Spielfelder aus
-    field0_x_ = shuffle(field0_x_list, 1)[0]
-    field1_x_ = shuffle(field1_x_list, 1)[0]
-    field3_x_ = shuffle(field3_x_list, 1)[0]
-    field4_x_ = shuffle(field4_x_list, 1)[0]
+    try:
+        field0_x_ = shuffle(field0_x_list, 1)[0]
+        field1_x_ = shuffle(field1_x_list, 1)[0]
+        field3_x_ = shuffle(field3_x_list, 1)[0]
+        field4_x_ = shuffle(field4_x_list, 1)[0]
+    except IndexError:
+        field0_x_ = "field_empty"
+        field1_x_ = "field_empty"
+        field3_x_ = "field_empty"
+        field4_x_ = "field_empty"
 
     # Runden und Felder 1,2 instanziieren
     rundenfelder = Versionen(runden, "rundenfelder")
@@ -1421,10 +1512,13 @@ def spielfeld_generieren(seed_wert):
     field1_x = Versionen(field1, field1_x_)
 
     # Spielfeld 3 basierend auf der Farbe von Spielfeld 2 auswählen
-    if field1_x.farbe == "Orange":
-        field2_x_ = shuffle(field2_x_list_blue, 1)[0]
-    else:
-        field2_x_ = shuffle(field2_x_list_orange, 1)[0]
+    try:
+        if field1_x.farbe == "Orange":
+            field2_x_ = shuffle(field2_x_list_blue, 1)[0]
+        else:
+            field2_x_ = shuffle(field2_x_list_orange, 1)[0]
+    except IndexError:
+        field2_x_ = "field_empty"
 
     # Restliche Spielfelder instanziieren
     field2_x = Versionen(field2, field2_x_)
@@ -1632,7 +1726,7 @@ def on_click(event):
 def open_setup_window():
     setup_win = tk.Toplevel(root)
     setup_win.title("Spielfeld Steuerung")
-    setup_win.geometry(f"320x350")
+    setup_win.geometry(f"320x320")
     setup_win.configure(bg=color_bg)
 
     version_buttons = {}
@@ -1656,21 +1750,8 @@ def open_setup_window():
         # Visuelles Update in der GUI
         update_button_visuals()
    
-        lists = choose_version_lists(active_versions)
-
-        requirements = ( (lists[0] and any(x is not None for x in lists[0])) and
-                         (lists[1] and any(x is not None for x in lists[1])) and
-                         ( (lists[2] and any(x is not None for x in lists[2])) or (lists[3] and any(x is not None for x in lists[3]))) and
-                         (lists[4] and any(x is not None for x in lists[4])) and
-                         (lists[5] and any(x is not None for x in lists[5])) )
-
-        if not requirements:
-            error_label.config(text="Listen unvollständig")
-            return
-        
-        error_label.config(text="")
         global field0_x_list, field1_x_list, field2_x_list_orange, field2_x_list_blue, field3_x_list, field4_x_list
-        field0_x_list, field1_x_list, field2_x_list_orange, field2_x_list_blue, field3_x_list, field4_x_list = lists
+        field0_x_list, field1_x_list, field2_x_list_orange, field2_x_list_blue, field3_x_list, field4_x_list = choose_version_lists(active_versions)
         apply_manual_seed()
 
     # =========================================================================
@@ -1737,13 +1818,6 @@ def open_setup_window():
 
     ok_btn = tk.Button(close_frame, text="START", font=font_large, command=setup_win.destroy)
     ok_btn.pack(fill="x", padx=5)
-
-    # =========================================================================
-    # Fehlermeldung
-    # =========================================================================
-    error_label = tk.Label(setup_win, text="", font=font_large, bg=color_bg, fg="red")
-    error_label.pack(pady=5)
-
 
 # ================================================================
 # Generierungung der tkinter Oberfläche

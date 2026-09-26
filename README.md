@@ -45,19 +45,20 @@ Die Spieler nutzen physische Würfel, deren Ergebnisse über eine interaktive Ma
 
 ## Installation & Start
 
-### Voraussetzungen 
-* **Python 3.10 oder neuer** (getestet unter Python 3.14)
+### Linux:
+* RandomCleverGame_linux
+
+### Windows:
+* RandomCleverGame_windows.exe
+
+### Direkt mit Python:
+
+#### 1. Voraussetzungen
+* (getestet unter **Python 3.14**)
 * **Tkinter:** Auf manchen Linux-Systemen muss Tkinter separat installiert werden:
   * *Ubuntu / Debian / Linux Mint:* `sudo apt install python3-tk`
 
-### 1. Repository klonen
-* In einem gewünschten Ordner das Terminal öffnen und folgendes ausführen:
-```
-git clone https://github.com/LutherChris/RandomCleverGame.git
-cd RandomCleverGame
-```
-
-### 2. Python Umgebung erstellen
+#### 2. Python Umgebung erstellen
 ```
 # Linux / macOS
 python3 -m venv venv
@@ -68,12 +69,12 @@ python -m venv venv
 venv\Scripts\activate
 ```
 
-### 3. Abhängigkeiten installieren:
+##### 3. Abhängigkeiten installieren:
 ```
 pip install -r requirements.txt
 ```
 
-### 4. Anwendung starten:
+#### 4. Anwendung starten:
 ```
 python RandomCleverGame.py
 ```

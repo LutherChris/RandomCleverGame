@@ -1,11 +1,13 @@
-# Python-Cache
 __pycache__/
 *.py[cod]
-
-# Virtuelle Umgebung
+build_linux/
+build_windows/
+dist_linux/
+dist_windows/
+Notizen/
 venv/
-.venv/
-
-# Entwickler-Tools / IDEs
+wine_venv/
 .vscode/
-.idea/
+*.spec
+
+
