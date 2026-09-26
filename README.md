@@ -78,12 +78,10 @@ source venv/bin/activate
 python -m venv venv
 venv\Scripts\activate
 ```
-
-##### 3. Abhängigkeiten installieren:
+#### 3. Abhängigkeiten installieren:
 ```
 pip install -r requirements.txt
 ```
-
 #### 4. Anwendung starten:
 ```
 python RandomCleverGame.py
